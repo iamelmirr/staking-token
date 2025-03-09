@@ -7,7 +7,7 @@ import {Test} from "forge-std/Test.sol";
 
 contract StakingTokenTest is Test {
     StakingToken stakingToken;
-    address user1 = makeAddr('user1');
+    address user1 = makeAddr("user1");
 
     function setUp() public {
         stakingToken = new StakingToken();

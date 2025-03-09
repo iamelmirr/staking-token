@@ -20,17 +20,17 @@ contract StakingToken is ERC20, Ownable {
     mapping(address => uint256) public stakingTimestamp;
 
     uint256 public constant REWARD_RATE = 50;
-    
+
     constructor() ERC20("Staking Token", "STK") Ownable(msg.sender) {
         _mint(msg.sender, 1000000 * 10 ** decimals());
     }
 
     function stake(uint256 amount) external {
-        if(amount <= 0) {
+        if (amount <= 0) {
             revert StakingToken__StakingTokenCannotStakeZero();
         }
 
-        if(balanceOf(msg.sender) <= amount) {
+        if (balanceOf(msg.sender) <= amount) {
             revert StakingToken__StakingTokenNotEnoughTokens();
         }
 
@@ -43,7 +43,7 @@ contract StakingToken is ERC20, Ownable {
     }
 
     function unstake(uint256 amount) external {
-        if(stakedBalance[msg.sender] <= 0) {
+        if (stakedBalance[msg.sender] <= 0) {
             revert StakingToken__StakingTokenThereIsNoStake();
         }
 
@@ -60,7 +60,7 @@ contract StakingToken is ERC20, Ownable {
         updateRewards(msg.sender);
 
         uint256 rewards = rewardBalance[msg.sender];
-        if(rewards <= amount) {
+        if (rewards <= amount) {
             revert StakingToken__StakingTokenNotEnoughRewards();
         }
 
@@ -80,12 +80,12 @@ contract StakingToken is ERC20, Ownable {
         }
     }
 
-    function getStakedBalance(address user) external view returns(uint256 balance) {
+    function getStakedBalance(address user) external view returns (uint256 balance) {
         balance = stakedBalance[user];
         return balance;
     }
 
-    function getRewardBalance(address user) external view returns(uint256 balance) {
+    function getRewardBalance(address user) external view returns (uint256 balance) {
         balance = rewardBalance[user];
         return balance;
     }
